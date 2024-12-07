@@ -32,6 +32,10 @@ class UsersTableSeeder extends Seeder
 
         $user->assignRole([$role->id]);
 
+    
         Role::create(['name' => 'Staff']);
+        Role::create(['name' => 'OfficeAdmin']);
+        Role::create(['name' => 'Seller']);
+        Role::create(['name' => 'Customer']);
     }
 }
