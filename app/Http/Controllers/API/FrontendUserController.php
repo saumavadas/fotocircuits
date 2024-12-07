@@ -142,11 +142,6 @@ class FrontendUserController extends Controller
              'email' => 'nullable|email|max:255|unique:frontend_users,email,' . $id,            
              'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
          ]);
-
-         //dd($request->all());
-
-        \Log::info(request()->all());
-
         // Find the seller by ID
         $FEuser = FrontendUser::find($id);
 
