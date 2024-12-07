@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\UserController;
 
 use App\Http\Controllers\API\FrontendUserController;
 use App\Http\Controllers\API\CategoryController;
-use App\Http\Controllers\SellerScheduleController;
+use App\Http\Controllers\API\SellerScheduleController;
 
 /*
 |--------------------------------------------------------------------------

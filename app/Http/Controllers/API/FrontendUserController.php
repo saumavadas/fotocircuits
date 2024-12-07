@@ -178,6 +178,7 @@ class FrontendUserController extends Controller
     public function viewProfile($id)
     {
         $FEuser = FrontendUser::find($id);
+        
         if (!$FEuser) 
         {
             return response()->json(['message' => 'User not found'], 404);
