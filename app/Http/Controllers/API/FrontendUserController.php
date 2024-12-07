@@ -137,11 +137,13 @@ class FrontendUserController extends Controller
     public function updateProfile(Request $request, $id)
     {
         // Validate incoming request
-        // $request->validate([
-        //     'name' => 'nullable|string|max:255',
-        //     'email' => 'nullable|email|max:255|unique:frontend_users,email,' . $id,            
-        //     'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        // ]);
+        $validator = Validator::make($request->all(),[
+             'name' => 'nullable|string|max:255',
+             'email' => 'nullable|email|max:255|unique:frontend_users,email,' . $id,            
+             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+         ]);
+
+         //dd($request->all());
 
         \Log::info(request()->all());
 
@@ -150,7 +152,7 @@ class FrontendUserController extends Controller
 
         if (!$FEuser) 
         {
-            return response()->json(['message' => 'Seller not found'], 404);
+            return response()->json(['message' => 'Userler not found'], 404);
         }
 
         // Update the seller's profile
@@ -178,4 +180,19 @@ class FrontendUserController extends Controller
         ]);
     }
     
+    public function viewProfile($id)
+    {
+        $FEuser = FrontendUser::find($id);
+        if (!$FEuser) 
+        {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        return response()->json([
+            'message' => 'View User profile ',
+            'FEuser' => $FEuser,
+        ]);
+        
+    }    
+
+
 }

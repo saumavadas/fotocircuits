@@ -34,6 +34,7 @@ Route::prefix('frontend-users')->group(function ()
     Route::post('/login', [FrontendUserController::class, 'login']);
 
     Route::put('/update-profile/{id}', [FrontendUserController::class, 'updateProfile']);
+    Route::get('/view-profile/{id}', [FrontendUserController::class, 'viewProfile']);
 });
 
 Route::get('/categories', [CategoryController::class, 'getAllCategories']);
