@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SellerSchedule;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
+
+use Illuminate\Support\Facades\Log;
 
 
 class SellerScheduleController extends Controller
@@ -15,12 +18,15 @@ class SellerScheduleController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required|string|max:255',
-            'schedule_date' => 'required|date',
+            'schedule_date' => 'required|date', //('Y-m-d') 2024-12-24
             'seller_id' => 'required|exists:frontend_users,id', // Ensure seller exists in the users table
         ]);
 
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 400);
+        if ($validator->fails()) 
+        {
+            Log::error('Validation Errors:', $validator->errors()->toArray());
+
+            return response()->json($validator->errors(), 422);
         }
 
         $schedule = SellerSchedule::create($request->only(['title', 'schedule_date', 'seller_id']));
@@ -43,9 +49,10 @@ class SellerScheduleController extends Controller
     // Get a specific schedule
     public function show($id)
     {
-        $schedule = SellerSchedule::find($id);
+        $schedule = SellerSchedule::where('seller_id', $id)->first();
 
-        if (!$schedule) {
+        if (!$schedule) 
+        {
             return response()->json(['message' => 'Schedule not found'], 404);
         }
 
